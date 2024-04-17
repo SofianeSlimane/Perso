@@ -8,25 +8,30 @@
 int main(void)
 {
 	int id2, id3, id4;
-	int id = fork();
+	int id;
 	char *argv[] = {"/bin/ls", "-l", "/tmp", NULL};
 	int status;
-
+	id = fork();
 	if (id != 0)
 	{
+		 wait(&status);
 		 id2 = fork();
 		 if (id2 != 0)
 		 {
+			 wait(&status);
 			 id3 = fork();
 		 }
 		 if (id3 != 0)
 		 {
+			 wait(&status);
 			 id4 = fork();
 		 }
-	}
-	if (id != 0)
-	{
-		wait(&status);
+		 if (id4 != 0)
+		 {
+			 wait(&status);
+			 
+		 }
+
 	}
 		 
 		
