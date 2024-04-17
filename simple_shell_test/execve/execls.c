@@ -10,37 +10,28 @@ int main(void)
 	int id2, id3, id4;
 	int id;
 	char *argv[] = {"/bin/ls", "-l", "/tmp", NULL};
-	int status;
-	id = fork();
-	if (id != 0)
-	{
-		 wait(&status);
-		 id2 = fork();
-		 if (id2 != 0)
-		 {
-			 wait(&status);
-			 id3 = fork();
-		 }
-		 if (id3 != 0)
-		 {
-			 wait(&status);
-			 id4 = fork();
-		 }
-		 if (id4 != 0)
-		 {
-			 wait(&status);
-			 
-		 }
+	int status, i;
 
-	}
-		 
-		
-	
-	
-	
-	if (execve(argv[0], argv, NULL) == -1)
+	i = 0;
+	while (i < 5)
 	{
-		printf("Error");
-	}
+		id = fork();
+		if (id == 0)
+		{
+			execve(argv[0], argv, NULL);
+			printf("Error");
+			exit(0);
+		}
+		else if (id > 0)
+		{
+			wait(&status);
+		}
+		else if (id == -1)
+		{
+			printf("Child was not created");
+			exit(56);
+		}
+			i++;
+		}
 	return (0);
 }
