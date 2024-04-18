@@ -6,17 +6,16 @@
 
 int main(void)
 {
-	char *buffer, token;
+	char *buffer;
+	char *token;
 	const char* delim = " \n";
-	const char* delim2 = " ";
 	size_t size = 0;
+	char *argv[] = {"/bin/ls", NULL};
 	int i = 0;
-	char *argv[] = NULL;
-
 	while(1)
 	{
 		printf("$ ");
-		if (getline(buffer, size, stdin) == -1)
+		if (getline(&buffer, &size, stdin) == -1)
 		{
 			return (-1);
 		}
@@ -24,21 +23,18 @@ int main(void)
 		token = strtok(buffer, delim);
 		while (token != NULL)
 		{
+			argv[i] = token;
 			token = strtok(NULL, delim);
+			i++;
 		}
-		token = strtok(token, delim2);
-		while (token != NULL)
-		{
-			argv[i] = 
-		while (argv[i] != NULL)
-		{
-			argc[i] = token;
+		argv[i] = NULL;
+
 		
-		if (execve(av[0], av, NULL) == -1)
+		if (execve(argv[0], argv, NULL) == -1)
 		{
 			perror("Error");
 			exit(0);
 		}
 	}
 
-
+}
