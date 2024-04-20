@@ -10,8 +10,8 @@ int main(void)
 	unsigned int i = 0;
 	struct stat st;
 	char *token;
-	char *path = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";
-	char *argv[100];
+	char path[] = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:ls";
+	char *argv[7];
 	const char *delim = ":";
 
 
@@ -25,7 +25,7 @@ int main(void)
 	}
 	argv[i] = NULL;
 	i = 0;
-	while (argv[i] != NULL)
+	while (i < 7)
 	{
 		printf("%s:", argv[i]);
 		if (stat(argv[i], &st) == 0)
