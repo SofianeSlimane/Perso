@@ -5,12 +5,15 @@ extern char** environ;
 char *_getenv(const char *name)
 {
 	unsigned int i = 0;
+	char *token;
+	char *delim = "=";
 
 	while (environ[i] != NULL)
 	{
-		if (environ[i] == name)
+		token = strtok(environ[i], delim);
+		if (token == name)
 		{
-			return (environ[i]);
+			return (token);
 		}
 		i++;
 	}
