@@ -10,14 +10,14 @@ int main(void)
 	char *token;
 	const char* delim = " \n";
 	size_t size = 0;
-	char **argv = NULL;
+	char *argv[100];
 	int i = 0;
 	int status;
 	pid_t pid;
 	while(1)
 	{
-		printf("$ ");
 		pid = fork();
+		printf("$ ");
 		if (pid > 0)
 		{
 			wait(&status);
@@ -35,14 +35,14 @@ int main(void)
                         i++;
                 }
                 argv[i] = NULL;
-                if (pid == 0)
-                {
+                
+                
 
                 execve(argv[0], argv, NULL);
-                }
+                
 		
 	}
 	free(buffer);
-	return (0);
+	
 		
 }
