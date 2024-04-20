@@ -1,8 +1,8 @@
 #include <stdio.h>
 
 
-int main()
+void main()
 {
 	printf("test successfull\n");
-	return (0);
+	
 }

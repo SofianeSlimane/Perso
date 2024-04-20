@@ -16,18 +16,14 @@ int main(void)
 	pid_t pid;
 	while(1)
 	{
-		pid = fork();
 		printf("$ ");
-		if (pid > 0)
-		{
-			wait(&status);
-		}
 
 		if (getline(&buffer, &size, stdin) == -1)
                 {
                         return (-1);
                 }
 		token = strtok(buffer, delim);
+		
                 while (token != NULL)
                 {
                         argv[i] = token;
@@ -35,14 +31,19 @@ int main(void)
                         i++;
                 }
                 argv[i] = NULL;
-                
-                
-
-                execve(argv[0], argv, NULL);
-                
-		
+		pid = fork();
+		if (pid == 0)
+		{	
+			execve(argv[0], argv, NULL);
+		}
+		else if (pid > 0)
+		{
+			wait(&status);
+			i = 0;
+		}
 	}
 	free(buffer);
+	return (0);
 	
 		
 }
