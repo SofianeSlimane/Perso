@@ -9,7 +9,7 @@
 
 
 char *_getenv(const char *name);
-
+int _strlen(char *s);
 
 
 
